@@ -1,0 +1,12 @@
+name: 'Setup HarmonyOS SDK'
+description: 'Download and set up HarmonyOS command line tools'
+author: 'ErBW_s'
+inputs:
+  version:
+    description: 'Command line tools build version (latest, 5.0.13.200)'
+    required: false
+    default: 'latest'
+  cache:
+    description: 'Whether to cache the SDK or not'
+    required: false
+    default: 'true'
