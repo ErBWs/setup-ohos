@@ -22,7 +22,7 @@ else
     BASE_URL=$BASE_URL/download/$VERSION
 fi
 
-WORK_DIR="~/ohos-sdk"
+WORK_DIR="$HOME/ohos-sdk"
 
 download_sdk() {
     mkdir -p $WORK_DIR
@@ -47,7 +47,6 @@ download_sdk() {
 
     echo Extracting...
     tar -xzf ohos-sdk-linux-amd64.tar.gz
-    ls -a
     rm ohos-sdk-linux-amd64.tar.*
 }
 
@@ -55,9 +54,9 @@ if [ ! -x "$WORK_DIR/command-line-tools/bin/ohpm" ]; then
     download_sdk
 fi
 
-TOOL_PATH="~/ohos-sdk/command-line-tools/bin"
-NODE_PATH="~/ohos-sdk/command-line-tools/tool/node/bin"
-HOS_SDK_HOME="~/ohos-sdk/command-line-tools/sdk"
+TOOL_PATH="$WORK_DIR/command-line-tools/bin"
+NODE_PATH="$WORK_DIR/command-line-tools/tool/node/bin"
+HOS_SDK_HOME="$WORK_DIR/command-line-tools/sdk"
 
 cd $HOS_SDK_HOME/default
 SDK_VERSION="$(jq -r '.data | .version' < sdk-pkg.json)"
