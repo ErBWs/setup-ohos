@@ -33,7 +33,7 @@ download_sdk() {
         exit 1
     fi
 
-    echo Download SDK from $BASE_URL into $WORK_DIR
+    echo Download SDK from $BASE_URL
 
     curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.aa -o ohos-sdk-linux-amd64.tar.gz.aa
     curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.ab -o ohos-sdk-linux-amd64.tar.gz.ab
@@ -69,6 +69,6 @@ echo "$TOOL_PATH" >> $GITHUB_PATH
 echo "$NODE_PATH" >> $GITHUB_PATH
 
 # Export for flutter
-echo "HOS_SDK_HOME=~/ohos-sdk/command-line-tools/sdk" >> $GITHUB_ENV
+echo "HOS_SDK_HOME=$WORK_DIR/command-line-tools/sdk" >> $GITHUB_ENV
 
 echo "Successfully setup $SDK_VERSION SDK with API$API_VERSION!"
