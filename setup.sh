@@ -47,6 +47,7 @@ download_sdk() {
 
     echo Extracting...
     tar -xzf ohos-sdk-linux-amd64.tar.gz
+    ls -a
     rm ohos-sdk-linux-amd64.tar.*
 }
 
