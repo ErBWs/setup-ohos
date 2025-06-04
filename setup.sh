@@ -2,7 +2,7 @@
 
 set -eu
 
-if [ "$RUNNER_OS" != "Linux" ] && [ "$RUNNER_ARCH" != "X64" ]; then
+if [ "$RUNNER_OS" != "Linux" ] || [ "$RUNNER_ARCH" != "X64" ]; then
     echo "Bad operating system, This action only supports Linux X64."
     exit 1
 fi
