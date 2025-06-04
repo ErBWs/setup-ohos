@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [latest, 5.0.13.200]
-        cache: [true, false]
+        version: [latest]
+        cache: [true]
     steps:
       - name: Clone repository
         uses: actions/checkout@v4

@@ -33,7 +33,7 @@ download_sdk() {
         exit 1
     fi
 
-    echo Download SDK from $BASE_URL
+    echo Download SDK from $BASE_URL into $WORK_DIR
 
     curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.aa -o ohos-sdk-linux-amd64.tar.gz.aa
     curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.ab -o ohos-sdk-linux-amd64.tar.gz.ab
