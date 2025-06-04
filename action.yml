@@ -1,12 +1,30 @@
 name: 'Setup HarmonyOS SDK'
-description: 'Download and set up HarmonyOS command line tools'
+description: 'Download and setup HarmonyOS command line tools'
 author: 'ErBW_s'
 inputs:
   version:
-    description: 'Command line tools build version (latest, 5.0.13.200)'
+    description: 'CLI tools build version (latest, 5.0.13.200)'
     required: false
     default: 'latest'
   cache:
     description: 'Whether to cache the SDK or not'
     required: false
-    default: 'true'
+    default: 'false' 
+
+runs:
+  using: composite
+  steps:
+    - name: Make the script executable
+      run: chmod +x "$GITHUB_ACTION_PATH/setup.sh"
+      shell: bash
+    - name: Cache SDK
+      uses: actions/cache@v4
+      if: ${{ inputs.cache == 'true' }}
+      with:
+        path: ~/ohos-sdk
+        key: ohos-sdk-${{ inputs.version }}-amd64
+    - name: Run setup script
+      shell: bash
+      run: |
+        $GITHUB_ACTION_PATH/setup.sh \
+          -v '${{ inputs.version }}'
