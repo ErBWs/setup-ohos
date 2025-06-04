@@ -1,0 +1,43 @@
+name: test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - setup.sh
+      - action.yml
+      - .github/workflows/test.yml
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [latest, 5.0.13.200]
+        cache: [true, false]
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - id: setup-ohos
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+          cache: ${{ matrix.cache }}
+      - name: Tests
+        run: |
+          node -v
+          ohpm -v
+          echo SDK_VERSION=${{ steps.setup-ohos.outputs.sdk-version }}
+          echo API_VERSION=${{ steps.setup-ohos.outputs.api-version }}
+      - name: Test cache
+        run: ./setup.sh ${{ matrix.version }}
+        shell: bash
+      - name: Tests
+        run: |
+          node -v
+          ohpm -v
+          echo SDK_VERSION=${{ steps.setup-ohos.outputs.sdk-version }}
+          echo API_VERSION=${{ steps.setup-ohos.outputs.api-version }}

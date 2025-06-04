@@ -62,6 +62,9 @@ cd $HOS_SDK_HOME/default
 SDK_VERSION="$(jq -r '.data | .version' < sdk-pkg.json)"
 API_VERSION="$(jq -r '.data | .apiVersion' < sdk-pkg.json)"
 
+echo "sdk-version=$SDK_VERSION" >> $GITHUB_OUTPUT
+echo "api-version=$API_VERSION" >> $GITHUB_OUTPUT
+
 echo "$TOOL_PATH" >> $GITHUB_PATH
 echo "$NODE_PATH" >> $GITHUB_PATH
 

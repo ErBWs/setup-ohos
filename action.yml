@@ -1,6 +1,7 @@
 name: 'Setup HarmonyOS SDK'
 description: 'Download and setup HarmonyOS command line tools'
 author: 'ErBW_s'
+
 inputs:
   version:
     description: 'CLI tools build version (latest, 5.0.13.200)'
@@ -9,7 +10,15 @@ inputs:
   cache:
     description: 'Whether to cache the SDK or not'
     required: false
-    default: 'false' 
+    default: 'false'
+
+outputs:
+  sdk-version:
+    description: "HarmonyOS SDK version (e.g. 5.0.5.165)"
+    value: ${{ steps.setup-ohos.outputs.sdk-version }}
+  api-version:
+    description: "API version (e.g. 17)"
+    value: ${{ steps.setup-ohos.outputs.api-version }}
 
 runs:
   using: composite
@@ -24,7 +33,8 @@ runs:
         path: ~/ohos-sdk
         key: ohos-sdk-${{ inputs.version }}-amd64
     - name: Run setup script
-      shell: bash
+      id: setup-ohos
       run: |
         $GITHUB_ACTION_PATH/setup.sh \
           -v '${{ inputs.version }}'
+      shell: bash
