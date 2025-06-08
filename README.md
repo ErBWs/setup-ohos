@@ -6,6 +6,20 @@ A simple action to download and setup HarmonyOS NEXT (API12+) building environme
 - latest SDK version: `5.0.5.165`
 - latest API: `5.0.5(17)`
 
+## Dependencies
+
+- `cURL` - Download sdk
+- `libGL1` - [Texture compression](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-command-line-building-app#section1478651816216)
+- `jq` - JSON processer, already embedded in GitHub Action
+
+```yaml
+- name: Install dependencies
+  run: |
+    sudo apt-get update
+    sudo apt-get install -y curl libgl1-mesa-dev
+  shell: bash
+```
+
 ## Usage
 
 ```yaml
