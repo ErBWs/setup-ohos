@@ -2,9 +2,9 @@
 
 A simple action to download and setup HarmonyOS NEXT (API12+) building environment in GitHub Action
 
-- latest CLI tools version: `5.0.13.200`
-- latest SDK version: `5.0.5.165`
-- latest API: `5.0.5(17)`
+- latest CLI tools version: `5.1.1.823`
+- latest SDK version: `5.1.1.202`
+- latest API: `5.1.1(19)`
 
 ## Dependencies
 
