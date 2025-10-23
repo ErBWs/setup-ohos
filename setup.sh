@@ -71,4 +71,7 @@ echo "$NODE_PATH" >> $GITHUB_PATH
 # Export for flutter
 echo "HOS_SDK_HOME=$WORK_DIR/command-line-tools/sdk" >> $GITHUB_ENV
 
+# Export for ohrs
+echo "OHOS_NDK_HOME=$WORK_DIR/command-line-tools/sdk/default/openharmony" >> $GITHUB_ENV
+
 echo "Successfully setup $SDK_VERSION SDK with API$API_VERSION!"
