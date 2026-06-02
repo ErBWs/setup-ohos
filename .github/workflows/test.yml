@@ -27,6 +27,7 @@ jobs:
         uses: ./
         with:
           version: ${{ matrix.version }}
+          cache: true
       - name: Tests
         run: |
           node -v
