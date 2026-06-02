@@ -2,13 +2,20 @@
 
 set -eu
 
-if [ "$RUNNER_OS" != "Linux" ] || [ "$RUNNER_ARCH" != "X64" ]; then
-    echo "Bad operating system, This action only supports Linux X64."
+if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_ARCH" == "X64" ]; then
+    FILENAME=ohos-sdk-linux-amd64.tar.gz
+elif [ "$RUNNER_OS" == "macOS" ]; then
+    if [ "$RUNNER_ARCH" == "X64" ]; then
+        FILENAME=ohos-sdk-mac-amd64.zip
+    else
+        FILENAME=ohos-sdk-mac-arm64.zip
+    fi
+elif [ "$RUNNER_OS" == "Windows" ] || [ "$RUNNER_ARCH" == "X64" ]; then
+    FILENAME=ohos-sdk-windows-amd64.zip
+else
+    echo "Bad operating system, This action only supports Linux AMD64, Windows AMD64 and macOS."
     exit 1
 fi
-
-BASE_URL="https://github.com/ErBWs/ohos-sdk/releases"
-VERSION=""
 
 while getopts 'v:' OPTION; do
     case "$OPTION" in
@@ -16,38 +23,29 @@ while getopts 'v:' OPTION; do
     esac
 done
 
-if [ "$VERSION" = "latest" ]; then
-    BASE_URL=$BASE_URL/latest/download
-else
-    BASE_URL=$BASE_URL/download/$VERSION
-fi
-
 WORK_DIR="$HOME/ohos-sdk"
 
 download_sdk() {
     mkdir -p $WORK_DIR
     cd $WORK_DIR
 
-    if ! curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.sha256 -o ohos-sdk-linux-amd64.tar.gz.sha256; then
-        echo "Bad download link, please confirm your version input is correct."
-        exit 1
-    fi
+    gh release download $VERSION -p "$FILENAME.*" -R ErBWs/ohos-sdk
 
-    echo Download SDK from $BASE_URL
-
-    curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.aa -o ohos-sdk-linux-amd64.tar.gz.aa
-    curl -fsSL $BASE_URL/ohos-sdk-linux-amd64.tar.gz.ab -o ohos-sdk-linux-amd64.tar.gz.ab
-    cat ohos-sdk-linux-amd64.tar.gz.aa ohos-sdk-linux-amd64.tar.gz.ab > ohos-sdk-linux-amd64.tar.gz
+    cat $FILENAME.aa $FILENAME.ab > $FILENAME
 
     # Basically it never fails, so no retry here
-    if ! sha256sum -c ohos-sdk-linux-amd64.tar.gz.sha256; then
+    if ! sha256sum -c $FILENAME.sha256; then
         echo "Checksum failed, terminate workflow."
         exit 1
     fi
 
     echo Extracting...
-    tar -xzf ohos-sdk-linux-amd64.tar.gz
-    rm ohos-sdk-linux-amd64.tar.*
+    if [ "$RUNNER_OS" == "Linux" ]; then
+        tar -xzf $FILENAME
+    else
+        unzip $FILENAME
+    fi
+    rm $FILENAME.*
 }
 
 if [ ! -x "$WORK_DIR/command-line-tools/bin/ohpm" ]; then

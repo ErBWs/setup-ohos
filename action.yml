@@ -7,9 +7,8 @@ branding:
 
 inputs:
   version:
-    description: 'CLI tools build version (latest, 5.0.13.200)'
+    description: 'CLI tools build version'
     required: false
-    default: 'latest'
   cache:
     description: 'Whether to cache the SDK or not'
     required: false
@@ -34,7 +33,7 @@ runs:
       if: ${{ inputs.cache == 'true' }}
       with:
         path: ~/ohos-sdk
-        key: ohos-sdk-${{ inputs.version }}-amd64
+        key: ohos-sdk-${{ runner.os }}-${{ runner.arch }}
     - name: Run setup script
       id: setup-ohos
       run: |
