@@ -36,6 +36,8 @@ runs:
         key: ohos-sdk-${{ runner.os }}-${{ runner.arch }}
     - name: Run setup script
       id: setup-ohos
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         $GITHUB_ACTION_PATH/setup.sh \
           -v '${{ inputs.version }}'

@@ -6,6 +6,10 @@ A simple action to download and setup HarmonyOS NEXT (API12+) building environme
 - latest SDK version: `6.1.1.125`
 - latest API: `6.1.1(24)`
 
+> [!IMPORTANT]
+>
+> For macOS and Windows, use `ErBWs/setup-ohos@v2` with CLI tools version later than `6.1.1.280`.
+
 ## Dependencies
 
 - `libGL1` - [Texture compression](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-command-line-building-app#section1478651816216) (Linux only)
@@ -33,6 +37,10 @@ steps:
   - run: hvigorw -v
 ```
 
+> [!IMPORTANT]
+>
+> Clear your action's cache when you want to upgrade the SDK.
+
 ### Options
 
 | Name    | Description                                                   |
@@ -52,9 +60,3 @@ If more envs are needed, feel free to file an issue and I will add it.
 ### Supported version
 
 Check out [ErBWs / ohos-sdk](https://github.com/ErBWs/ohos-sdk/releases) for more supported version codes
-
-> [!IMPORTANT]
->
-> 1. Clear your action's cache when you want to upgrade the SDK.
->
-> 2. For macOS and Windows, use `ErBWs/setup-ohos@v2` with CLI tools version later than `6.1.1.280`.
