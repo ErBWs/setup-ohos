@@ -33,7 +33,7 @@ runs:
       if: ${{ inputs.cache == 'true' }}
       with:
         path: ~/ohos-sdk
-        key: ohos-sdk-${{ runner.os }}-${{ runner.arch }}
+        key: ohos-sdk-${{ runner.os }}-${{ runner.arch }}-${{ inputs.version }}
     - name: Run setup script
       id: setup-ohos
       env:

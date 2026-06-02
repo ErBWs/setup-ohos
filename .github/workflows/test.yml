@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest, macos-15-intel]
-        version: [6.1.1.280]
+        version: ['', 6.1.1.280]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Clone repository
@@ -34,4 +34,3 @@ jobs:
           hvigorw -v
           echo SDK_VERSION=${{ steps.setup-ohos.outputs.sdk-version }}
           echo API_VERSION=${{ steps.setup-ohos.outputs.api-version }}
-        shell: bash

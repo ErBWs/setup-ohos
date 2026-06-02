@@ -25,6 +25,14 @@ done
 
 WORK_DIR="$HOME/ohos-sdk"
 
+to_runner_path() {
+    if [ "$RUNNER_OS" == "Windows" ]; then
+        cygpath -w "$1"
+    else
+        printf '%s\n' "$1"
+    fi
+}
+
 download_sdk() {
     mkdir -p $WORK_DIR
     cd $WORK_DIR
@@ -48,12 +56,19 @@ download_sdk() {
     rm $FILENAME.*
 }
 
-if [ ! -x "$WORK_DIR/command-line-tools/bin/ohpm" ]; then
+if [ "$RUNNER_OS" == "Windows" ]; then
+    OHPM_CHECK_PATH="$WORK_DIR/command-line-tools/bin/ohpm.bat"
+    NODE_PATH="$WORK_DIR/command-line-tools/tool/node"
+else
+    OHPM_CHECK_PATH="$WORK_DIR/command-line-tools/bin/ohpm"
+    NODE_PATH="$WORK_DIR/command-line-tools/tool/node/bin"
+fi
+
+if [ ! -f "$OHPM_CHECK_PATH" ]; then
     download_sdk
 fi
 
 TOOL_PATH="$WORK_DIR/command-line-tools/bin"
-NODE_PATH="$WORK_DIR/command-line-tools/tool/node/bin"
 HOS_SDK_HOME="$WORK_DIR/command-line-tools/sdk"
 
 cd $HOS_SDK_HOME/default
@@ -63,13 +78,13 @@ API_VERSION="$(jq -r '.data | .apiVersion' < sdk-pkg.json)"
 echo "sdk-version=$SDK_VERSION" >> $GITHUB_OUTPUT
 echo "api-version=$API_VERSION" >> $GITHUB_OUTPUT
 
-echo "$TOOL_PATH" >> $GITHUB_PATH
-echo "$NODE_PATH" >> $GITHUB_PATH
+echo "$(to_runner_path "$TOOL_PATH")" >> $GITHUB_PATH
+echo "$(to_runner_path "$NODE_PATH")" >> $GITHUB_PATH
 
 # Export for flutter
-echo "HOS_SDK_HOME=$WORK_DIR/command-line-tools/sdk" >> $GITHUB_ENV
+echo "HOS_SDK_HOME=$(to_runner_path "$HOS_SDK_HOME")" >> $GITHUB_ENV
 
 # Export for ohrs
-echo "OHOS_NDK_HOME=$WORK_DIR/command-line-tools/sdk/default/openharmony" >> $GITHUB_ENV
+echo "OHOS_NDK_HOME=$(to_runner_path "$HOS_SDK_HOME/default/openharmony")" >> $GITHUB_ENV
 
 echo "Successfully setup $SDK_VERSION SDK with API$API_VERSION!"

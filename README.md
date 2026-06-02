@@ -39,14 +39,14 @@ steps:
 
 > [!IMPORTANT]
 >
-> Clear your action's cache when you want to upgrade the SDK.
+> If you leave `version` blank with cache on, you need to clear your action's cache when you want to upgrade the SDK.
 
 ### Options
 
-| Name    | Description                                                   |
-|---------|---------------------------------------------------------------|
-| version | Optional. Verison of CLI tools, can be `6.1.1.280`, etc.      |
-| cache   | Optional. Whether to cache the SDK, can be `true` or `false`. |
+| Name    | Description                                                                                    |
+|---------|------------------------------------------------------------------------------------------------|
+| version | Verison of CLI tools, can be `6.1.1.280`, etc. Optional, leave it blank to use latest version. |
+| cache   | Whether to cache the SDK, can be `true` or `false`. Optional.                                  |
 
 ### Environment variables
 
