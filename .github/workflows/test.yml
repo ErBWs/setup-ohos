@@ -34,3 +34,4 @@ jobs:
           hvigorw -v
           echo SDK_VERSION=${{ steps.setup-ohos.outputs.sdk-version }}
           echo API_VERSION=${{ steps.setup-ohos.outputs.api-version }}
+        shell: bash
