@@ -30,7 +30,7 @@ steps:
   - name: Clone repository
     uses: actions/checkout@v4
   - name: Setup HarmonyOS CLI tools
-    uses: ErBWs/setup-ohos@v1
+    uses: ErBWs/setup-ohos@v2
     with:
       version: 6.1.1.280
       cache: true
