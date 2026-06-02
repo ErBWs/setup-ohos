@@ -2,7 +2,7 @@
 
 set -eu
 
-if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_ARCH" == "X64" ]; then
+if [ "$RUNNER_OS" == "Linux" ] && [ "$RUNNER_ARCH" == "X64" ]; then
     FILENAME=ohos-sdk-linux-amd64.tar.gz
 elif [ "$RUNNER_OS" == "macOS" ]; then
     if [ "$RUNNER_ARCH" == "X64" ]; then
@@ -10,7 +10,7 @@ elif [ "$RUNNER_OS" == "macOS" ]; then
     else
         FILENAME=ohos-sdk-mac-arm64.zip
     fi
-elif [ "$RUNNER_OS" == "Windows" ] || [ "$RUNNER_ARCH" == "X64" ]; then
+elif [ "$RUNNER_OS" == "Windows" ] && [ "$RUNNER_ARCH" == "X64" ]; then
     FILENAME=ohos-sdk-windows-amd64.zip
 else
     echo "Bad operating system, This action only supports Linux AMD64, Windows AMD64 and macOS."
@@ -43,7 +43,7 @@ download_sdk() {
     if [ "$RUNNER_OS" == "Linux" ]; then
         tar -xzf $FILENAME
     else
-        unzip $FILENAME
+        unzip -q $FILENAME
     fi
     rm $FILENAME.*
 }
